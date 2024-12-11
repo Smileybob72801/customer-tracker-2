@@ -10,6 +10,6 @@
 <body>
     <?php include 'navbar.php'; ?>
     <h1>Welcome to My Web Server!</h1>
-    <p>This is your self-hosted server running on Apache with PHP.</p>
+    <p>This is my self-hosted server running on Apache with PHP.</p>
 </body>
 </html>
