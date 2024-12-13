@@ -27,6 +27,6 @@ def update_customer(customer_id, new_name):
 def delete_customer(customer_id):
     connection = sqlite3.connect(DATABASE)
     cursor = connection.cursor()
-    cursor.execute("DELETE FROM customers WHERE ID = ?", (customer_id))
+    cursor.execute("DELETE FROM customers WHERE id = ?", (customer_id,))
     connection.commit()
     connection.close()

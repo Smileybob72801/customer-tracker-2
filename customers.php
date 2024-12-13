@@ -16,6 +16,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         header("Location: customers.php");
         exit();
     }
+
+    // Delete customer
+    if (isset($_POST['delete_customer'])){
+        $id = intval($_POST['id']);
+        shell_exec("python -c \"import customers; customers.delete_customer($id)\"");
+        header("Location: customers.php");
+        exit();
+    }
 }
 ?>
 
@@ -32,17 +40,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <?php include 'navbar.php'; ?>
     <h1>Customer List</h1>
 
-    <!-- Add Customer Form -->
+    <!-- Add form -->
     <form method="POST" action="customers.php">
         <input type="text" name="name" placeholder="Enter customer name" required>
         <button type="submit" name="add_customer">Add Customer</button>
     </form>
 
-    <!-- Update Customer Form -->
+    <!-- Update form -->
     <form method="POST" action="customers.php">
         <input type="number" name="id" placeholder="Enter customer ID" required>
         <input type="text" name="new_name" placeholder="Enter new customer name" required>
         <button type="submit" name="update_customer">Update Customer</button>
+    </form>
+
+    <!-- Delete form -->
+    <form method="POST" action="customers.php">
+        <input type="number" name="id" placeholder="Enter customer ID to delete" required>
+        <button type="submit" name="delete_customer">Delete Customer</button>
     </form>
     
     <ul>
