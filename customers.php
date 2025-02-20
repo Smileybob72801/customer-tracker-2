@@ -1,4 +1,22 @@
 <?php
+// Direct API Calls
+if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['api'])) {
+    header("Content-Type: application/json");
+    
+    $output = shell_exec("python get_customers.py 2>&1");
+
+    error_log("Python Output: " . $output);
+
+    $customers = json_decode($output, true);
+
+    if (json_last_error() === JSON_ERROR_NONE) {
+        echo json_encode(["status" => "success", "customers" => $customers], JSON_PRETTY_PRINT);
+    } else {
+        echo json_encode(["status" => "error", "message" => "Invalid JSON response", "details" => json_last_error_msg()]);
+    }
+    exit();
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Add customer
     if (isset($_POST['add_customer'])) {
